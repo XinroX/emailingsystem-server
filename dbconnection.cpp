@@ -6,7 +6,7 @@
 DbConnection::DbConnection(QObject *parent)
     : IDbConnection{parent}
 {
-    db = QSqlDatabase::addDatabase("QPSQL");
+    db = QSqlDatabase::addDatabase("QPSQL", "test");
     db.setHostName("192.168.1.33");
     db.setPort(5432);
     db.setDatabaseName("projekt");
@@ -29,7 +29,14 @@ void DbConnection::Disconnect() {
     db.close();
 }
 
-int DbConnection::ProcessQuery(QSharedPointer<QSqlQuery> query) {
-    query->exec();
-    return query->numRowsAffected();
+int DbConnection::ProcessQuery(QSqlQuery& query) {
+    qInfo() << db.isOpen();
+    query.exec();
+    qInfo() << db.lastError().text();
+    qInfo() << query.lastError().text();
+    return query.numRowsAffected();
+}
+
+QSqlQuery DbConnection::GenerateQuery() {
+    return QSqlQuery(db);
 }

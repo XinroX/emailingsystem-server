@@ -12,8 +12,7 @@ enum class MessageCode {
     LOGIN_ACCEPT = 12,
     LOGIN_ERROR = 13,
     GET_MESSAGES_RECEIVED = 21,
-    GET_NEW_MESSAGES_RECEIVED = 22,
-    GET_MESSAGES_SENT = 23,
+    GET_MESSAGES_SENT = 22,
     NO_MESSAGE_FOUND = 31,
     MESSAGES_FOUND = 32
 };
@@ -34,12 +33,12 @@ private:
     void processHeader();
     void processLoginRequest();
     void processGetReceivedMessagesRequest();
+    void processGetSentMessagesRequest();
     //void prepareLoginResponse(const QString& content);
 
 
-
-    QByteArray message;
     IDbConnection* db;
+    QByteArray message;
 };
 
 #endif // SERVERSERVICE_H

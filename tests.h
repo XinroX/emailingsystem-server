@@ -16,7 +16,8 @@ public:
 
     MOCK_METHOD(void, Connect, ());
     MOCK_METHOD(void, Disconnect, ());
-    MOCK_METHOD(int, ProcessQuery, (QSharedPointer<QSqlQuery>));
+    MOCK_METHOD(int, ProcessQuery, (QSqlQuery&));
+    MOCK_METHOD(QSqlQuery, GenerateQuery, ());
 };
 
 class ServerResponseTest : public QObject, public testing::Test/*WithParam<std::tuple<int, MessageCode>> */{

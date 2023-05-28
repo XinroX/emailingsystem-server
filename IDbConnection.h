@@ -10,7 +10,8 @@ class IDbConnection : public QObject {
 public:
     virtual void Connect() = 0;
     virtual void Disconnect() = 0;
-    virtual int ProcessQuery(QSharedPointer<QSqlQuery> query) = 0;
+    virtual int ProcessQuery(QSqlQuery& query) = 0;
+    virtual QSqlQuery GenerateQuery() = 0;
     virtual ~IDbConnection(){}
 protected:
     explicit IDbConnection(QObject* parent = nullptr) : QObject{parent}{}

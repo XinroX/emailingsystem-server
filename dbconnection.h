@@ -5,6 +5,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include "IDbConnection.h"
+#include <QtSql>
 
 class DbConnection : public IDbConnection
 {
@@ -14,12 +15,15 @@ public:
 
     void Connect() override;
     void Disconnect() override;
-    int ProcessQuery(QSharedPointer<QSqlQuery> query) override;
+    int ProcessQuery(QSqlQuery& query) override;
+    QSqlQuery GenerateQuery() override;
 
 signals:
 private:
     QSqlDatabase db;
 
 };
+
+
 
 #endif // DBCONNECTION_H
