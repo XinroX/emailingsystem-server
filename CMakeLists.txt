@@ -15,8 +15,8 @@ set(QT_DIR "/home/mateusz/Qt/5.15.2/gcc_64/lib/cmake/Qt5")
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 include(AddGitSubmodule)
 
-find_package(QT NAMES Qt5 REQUIRED COMPONENTS Core Sql)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Sql)
+find_package(QT NAMES Qt5 REQUIRED COMPONENTS Core Sql Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Sql Network)
 find_package(GTest CONFIG REQUIRED)
 
 set(GMOCK_LIBRARIES /usr/local/lib/libgmock.a	/usr/local/lib/libgmock_main.a)
@@ -26,7 +26,7 @@ set(SOURCE_FILES
     serverservice.h serverservice.cpp
     dbconnection.h dbconnection.cpp
     IDbConnection.h receiver.h
-)
+        Server.cpp Server.h)
 add_executable(emailingsystem-server
   ${SOURCE_FILES} main.cpp
   #tests.cpp
@@ -37,10 +37,10 @@ add_executable(testServer ${SOURCE_FILES} tests.h tests.cpp)
 add_git_submodule(external/core)
 
 
-target_link_libraries(emailingsystem-server Qt${QT_VERSION_MAJOR}::Core Qt5::Sql
+target_link_libraries(emailingsystem-server Qt${QT_VERSION_MAJOR}::Core Qt5::Sql Qt5::Network
     core)
 
-target_link_libraries(testServer Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Sql
+target_link_libraries(testServer Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Sql Qt5::Network
     core GTest::gtest_main ${GMOCK_LIBRARIES})
 
 install(TARGETS emailingsystem-server
